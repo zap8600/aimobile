@@ -6,7 +6,7 @@ tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
 model = GPT2LMHeadModel.from_pretrained('gpt2')
 model.eval()
 
-dummy_text = "I believe in rei plush supremacy.I believe in rei plush supremacy.I believe in rei plush supremacy.I believe in rei plush supremacy.I believe in rei plush supremacy.I believe in rei plush supremacy.I believe in rei plush supremacy.I believe in rei plush supremacy.I believe in rei plush supremacy.I believe in rei plush supremacy.I believe in rei plush supremacy.I believe in rei plush supremacy.I believe in rei plush supremacy.I believe in rei plush supremacy.I believe in rei plush supremacy.I believe in rei plush supremacy."
+dummy_text = "The quick fox jumps over the lazy dog."
 dummy_input = tokenizer(dummy_text, return_tensors='pt')['input_ids']
 
 tokenizer.save_pretrained("./model")
