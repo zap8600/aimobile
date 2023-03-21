@@ -1,14 +1,15 @@
 import torch
-from transformers import GPT2Tokenizer
+from transformers import GPT2Tokenizer, GPT2LMHeadModel
 
-tokenizer = GPT2Tokenizer.from_pretrained("./model")
-tokenizer.pad_token = tokenizer.eos_token
-model = torch.jit.load("./model/traced_gpt2.pt")
+tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
+model = GPT2LMHeadModel.from_pretrained('gpt2')
 
-sequence = (input("Enter Prompt: "))
+sequence = ([15006, 36934, 37516, 15006])
 
-inputs = tokenizer(sequence, padding='max_length', max_length=128)['input_ids']
-outputs = model(torch.tensor([inputs]))
+print(len(sequence))
+print(sequence)
 
-text = tokenizer.decode(outputs, skip_special_tokens=True)
-print(text)
+inputs = torch.tensor(sequence)
+outputs = model.generate(inputs)
+
+tokenizer.decode(outputs)
