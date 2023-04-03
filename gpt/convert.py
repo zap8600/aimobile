@@ -1,7 +1,7 @@
 import tensorflow as tf
-from transformers import TFGPT2LMHeadModel
+from transformers import TFOpenAIGPTLMHeadModel
 
-model = TFGPT2LMHeadModel.from_pretrained('gpt2') # or 'distilgpt2'
+model = TFOpenAIGPTLMHeadModel.from_pretrained('openai-gpt')
 
 input_spec = tf.TensorSpec([1, 64], tf.int32)
 model._set_inputs(input_spec, training=False)
@@ -11,10 +11,9 @@ print(model.outputs)
 
 converter = tf.lite.TFLiteConverter.from_keras_model(model)
 
-# For FP16 quantization:
 converter.optimizations = [tf.lite.Optimize.DEFAULT]
 converter.target_spec.supported_types = [tf.float16]
 
 tflite_model = converter.convert()
 
-open("./model/gpt2.tflite", "wb").write(tflite_model)
+open("./model/gpt.tflite", "wb").write(tflite_model)
